@@ -6,13 +6,15 @@
 		}
 		/*  */
 		public function access($username,$password){
-			$user = $this->get_user($username);
+			$user = $this->getUser($username);
+			if($user == false)return false;
 			if($user->password == md5($password)){
 				# Update skey.
 				$skey = $this->update_skey($username);
 				# Create Session.
 				$this->session->set_userdata([
 					'id'		=> $user->id,
+					'skey'		=> $skey,
 					'username'	=> $user->username,
 				]);
 				return true;
@@ -36,13 +38,13 @@
 			return $skey;
 		}
 		/*  */
-		public function get_user($username){
+		public function getUser($username){
 			$this->db->where([
 				'username'	=> $username
 			]);
 			$query = $this->db->get('users');
 			if($query->num_rows() < 1)
-				throw new Exception('User '. $username .' not found.');
+				return false;
 
 			$username = $query->row(0);
 			return $username;
