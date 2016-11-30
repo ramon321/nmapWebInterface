@@ -12,6 +12,8 @@
         <p
             class="
                 <?php if(strpos($output, 'open') !== false): ?>open<?php endif ?>
+                <?php if(strpos($output, 'scan report') !== false): ?>open<?php endif ?>
+                
                 <?php if(strpos($output, 'closed') !== false): ?>closed<?php endif ?>"
         ><?= $output; ?></p>
     <?php endforeach ?>

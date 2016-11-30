@@ -4,11 +4,8 @@
         private $commands = array(
             'network'   => ['tag'=>'Escanear red', 'command'=>'-sn'],
             'ip'   => ['tag'=>'Escanear ip', 'command'=>''],
-            'firewall'=>['tag'=>'¿Esta protegido por un firewall?','command'=>'-sA'],
-            'services'=>['tag'=>'Encontrar servicios','command'=>'-sP'],
             'fast'=>['tag'=>'Escaneo rapido','command'=>'-F'],
-            'openPorts'=>['tag'=>'Solo mostrar puertos abiertos','command'=>'--open'],
-            'interface'=>['tag'=>'Mostrar interfaz','command'=>'--iflist'],
+            'interface'=>['tag'=>'Mostrar interfaz','command'=>'--iflist']
         );
         /**/
         public function getAllCommands()
@@ -27,7 +24,7 @@
         /**/
         private function createCommand($command,$ip,$netMask)
         {
-            if($command == 'network')
+            if($command == 'network' || $command == 'networkWithPorts')
             {
                 $netMask = $this->netmask2cidr($netMask);
                 $ip .= "/$netMask";
